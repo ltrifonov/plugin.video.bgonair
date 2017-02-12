@@ -155,7 +155,7 @@ def list_categories():
         # Example: plugin://plugin.video.example/?action=listing&category=Animals
         url = '{0}?action=listing&category={1}'.format(_url, category)
         # is_folder = True means that this item opens a sub-list of lower level items.
-        is_folder = False
+        is_folder = True
         # Add our item to the listing as a 3-element tuple.
         listing.append((url, list_item, is_folder))
     # Add our listing to Kodi.
