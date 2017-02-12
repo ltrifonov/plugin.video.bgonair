@@ -37,7 +37,19 @@ html = website.read()
 
 soup = BeautifulSoup(html)
 vsicki = soup.findAll("div", {"class": "h2_title"})
+
+# add the News as a very first element
 vsickipred=[]
+link = {}  
+name = "Емисии новини".encode('utf-8')
+caturl="http://www.bgonair.bg/video-listing/emisii"
+link['thumb'] = "http://www.bgonair.bg/media/template/default/img/ico/logo.jpg"
+link['href'] =  caturl
+link['name']  = name
+link['genre']  = ""
+vsickipred.append(link)
+VIDEOS.update({name: vsickipred})
+
 for category in vsicki:
   a=category.find('a') 
   vsickipred=[]
