@@ -73,7 +73,7 @@ def get_videos(category):
     :param category: str
     :return: list
     """
-    
+    i=0 
     videolist = VIDEOS[category]  
     vsickipred=[]
     links=category
@@ -85,22 +85,43 @@ def get_videos(category):
     #read html code
     html2 = website2.read()
     soup2 = BeautifulSoup(html2)
-    print("+++" + html)
-    vsicki2 = soup2.findAll('div',{"class": "image col-md3"})
-    for vid2 in vsicki2:
+    
+    vid2 = soup2.find('div',{"class": "image col-md3"})
+    if vid2:
+      i=i+1
+      
+    
       link={}
       a=vid2.find('a')
       img=vid2.find('img')
       xbmc.log("Extracted lat category: " + a.span.text)
-      link["name"] = a.span.text
+      link["name"] = str(i).rjust(3,'0') + " " + a.span.text
       link['video'] = a["href"]
       link['genre'] = a.span.text
       link['thumb'] = img["src"].strip()
       vsickipred.append(link)
-
-    xbmc.log("End scrapping Found:")
-    for vids in vsickipred:
-      xbmc.log(vids['video'])
+      parent=vid2
+      nextt=parent.findNextSibling('div',{"class": "image col-md3"})
+      
+      while True:
+          if nextt is None:
+            xbmc.log("get out of here!")
+            break
+          i=i+1
+          link={}
+          a=nextt.find('a')
+          img=nextt.find('img')
+          xbmc.log("Extracted lat category: " + a.span.text)
+          link["name"] = str(i).rjust(3,'0') + " " + a.span.text
+          link['video'] = a["href"]
+          link['genre'] = a.span.text
+          link['thumb'] = img["src"].strip()
+          vsickipred.append(link)
+          parent=nextt
+          nextt=parent.findNextSibling('div',{"class": "image col-md3"})
+          
+        
+    xbmc.log("End scrapping!")
     
     return vsickipred
 
@@ -134,7 +155,7 @@ def list_categories():
         # Example: plugin://plugin.video.example/?action=listing&category=Animals
         url = '{0}?action=listing&category={1}'.format(_url, category)
         # is_folder = True means that this item opens a sub-list of lower level items.
-        is_folder = True
+        is_folder = False
         # Add our item to the listing as a 3-element tuple.
         listing.append((url, list_item, is_folder))
     # Add our listing to Kodi.
@@ -142,7 +163,7 @@ def list_categories():
     # instead of adding one by ove via addDirectoryItem.
     xbmcplugin.addDirectoryItems(_handle, listing, len(listing))
     # Add a sort method for the virtual folder items (alphabetically, ignore articles)
-    xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_LABEL_IGNORE_THE)
+    xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_NONE)
     # Finish creating a virtual folder.
     xbmcplugin.endOfDirectory(_handle)
 
