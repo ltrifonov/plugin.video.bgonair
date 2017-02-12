@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.bgonair"
-version="0.0.1"
+version="0.0.2"
 name="Bg OnAir - watch video archives"
 provider-name="lyu">
 <requires>
@@ -12,7 +12,7 @@ provider-name="lyu">
 </extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="en">BGONAIR Video archives play</summary>
-  <description lang="en">A video plugin, It scrapes the bgonair.bg website.</description>
-  <disclaimer lang="en">Use if you find it useful. I spent 2 hours on it and it works for me.</disclaimer>
+  <description lang="en">An extremely simple video plugin, It scrapes the bgonair.bg website.</description>
+  <disclaimer lang="en">Use if you find it useful. I spent 2 hours on it and it works for me. No plans to improve it in the futire</disclaimer>
 </extension>
 </addon>
