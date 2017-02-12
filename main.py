@@ -95,7 +95,7 @@ def get_videos(category):
       link["name"] = a.span.text
       link['video'] = a["href"]
       link['genre'] = a.span.text
-      link['thumb'] = img["src"]
+      link['thumb'] = img["src"].strip()
       vsickipred.append(link)
 
     xbmc.log("End scrapping Found:")
